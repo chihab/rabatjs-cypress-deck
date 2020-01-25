@@ -1,0 +1,190 @@
+import { comic } from "mdx-deck/themes";
+
+import Highlighter from "react-syntax-highlighter";
+
+export const themes = [
+  comic,
+  {
+    colors: {
+      background: "white"
+    },
+    styles: {
+      pre: {
+        fontSize: '1em',
+      }
+    }
+  }
+];
+
+## End to End Testing with Cypress
+
+Rabat.js Monthly Meetup - January 2020
+
+---
+
+## Chihab Otmani
+
+- Sr Software Engineer
+- Independent JavaScript Developer / Trainer
+- Dad of [👦,👶]
+- Co-founder of Kidlabs.io
+
+---
+
+## Introduction to Testing
+
+* Unit testing
+* Integration testing
+* E2e / Functional testing
+
+---
+
+## Test Pyramid
+
+![Test Pyramid](https://kentcdodds.com/static/60f8a435ae977edb9feb53efb985854f/11d19/2.png)
+
+---
+
+## Introduction to Cypress
+* Blazing fast
+* Awesome DX
+* Time travel
+* Headless testing
+* Network traffic control
+
+---
+
+## State of Cypress - 01/20
+* 17.8k stars 
+* 814,193 weekly downloads
+* Backed by Cypress.io
+
+---
+
+## Install Cypress
+
+```
+$ npm install -D cypress
+```
+
+---
+
+## Cypress GUI
+
+```
+$ cypress open
+```
+
+---
+
+## Folder structure
+
+* fixtures
+* integration
+* plugins
+* support
+
+---
+
+## Cypress test
+
+- [Mocha testing library](https://www.chaijs.com/)
+- [Chai assertion library](https://www.chaijs.com/)
+
+---
+
+## Cypress test
+
+<Highlighter language="javascript">
+  {
+`describe("Home Page", () => {
+  it("should display looading spinner", () => {
+    cy.visit("/");
+    cy.get("#loading").should('be.visible');
+  });
+});
+`}
+</Highlighter>
+
+---
+
+## Querying elements
+
+```js
+cy.get(".my-selector")
+```
+
+---
+
+## Interacting with elements
+
+- .click()
+- .dblclick()
+- .type()
+- .clear()
+
+---
+
+## Mock network requests
+
+<Highlighter language="javascript">
+  {`cy.server()
+cy.route('GET', '/users', [
+  { id:1, name: 'User 1' },
+  { id:2, name: 'User 2' }
+])
+`}
+</Highlighter>
+
+---
+
+## Cypress fixtures
+
+<Highlighter language="javascript">
+  {`
+cy.fixture('users.json').as('users');
+cy.server()
+cy.route({
+  method: 'GET',
+  url: '/users',
+  response: '@users'
+})
+`}
+</Highlighter>
+
+---
+
+## Cypress custom commands
+
+<Highlighter language="javascript">
+  {`Cypress.Commands.add('clickLink', (label) => {
+  cy.get('a').contains(label).click()
+});
+cy.clickLink('Buy Now')
+`}
+</Highlighter>
+
+---
+
+## Cypress in CI
+
+```
+$ yarn e2e
+```
+
+- Serve the application from CI then run tests
+- Use Cypress environment variables
+
+---
+
+## Trade-offs
+
+- Only JavaScript (No problem for us I guess :)
+- Browser support (As of today)
+- No `fetch` capture without a [workaround](https://github.com/cypress-io/cypress/issues/95#issuecomment-347607198)
+- cross-origin domains limitation
+
+---
+
+# Thanks 😀
+##### slides made with [mdx-deck](https://github.com/jxnblk/mdx-deck/) with comic theme
